@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="aba-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00466E"/>
+      <stop offset="100%" stop-color="#002D47"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#aba-grad)"/>
+  
+  <!-- ABA bold brand letters -->
+  <g fill="#FFFFFF" transform="translate(6, 12)">
+    <!-- A -->
+    <path d="M5.8 4h5.2L17 23.5h-4.3l-1.3-4.8H6l-1.3 4.8H.5L5.8 4zm3.1 4.5L6.9 15h4.1L9 8.5z"/>
+    <!-- B -->
+    <path d="M19.5 4h6.6c3.8 0 6.1 1.8 6.1 4.8 0 2-1 3.5-2.7 4.1 2.3.6 3.7 2.3 3.7 4.9 0 3.3-2.6 5.8-6.9 5.8h-6.8V4zm4.2 3.6v4.6h2.1c1.5 0 2.4-.7 2.4-2.3 0-1.5-.9-2.3-2.4-2.3h-2.1zm0 8.1v5.1h2.5c1.6 0 2.7-.8 2.7-2.6 0-1.7-1.1-2.5-2.7-2.5h-2.5z"/>
+    <!-- A -->
+    <path d="M38.5 4h5.2L49.7 23.5h-4.3l-1.3-4.8h-5.4l-1.3 4.8H33L38.5 4zm3.1 4.5l-2.1 6.5h4.1l-2-6.5z"/>
+    <!-- Cyan Accent Dot -->
+    <circle cx="51.5" cy="8" r="2.2" fill="#00A3E0"/>
+  </g>
+  
+  <!-- PAYWAY cyan badge pill -->
+  <rect x="8" y="41" width="48" height="15" rx="4.5" fill="#00A3E0"/>
+  <text x="32" y="52.2" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9.5" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1.2">PAYWAY</text>
+</svg>

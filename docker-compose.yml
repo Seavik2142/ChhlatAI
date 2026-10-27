@@ -1,0 +1,114 @@
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: chhlatai-db
+    environment:
+      POSTGRES_USER: chhlat
+      POSTGRES_PASSWORD: chhlat
+      POSTGRES_DB: chhlatai
+    ports:
+      # Exposes 5434 on host for external DB inspection tools (DBeaver, psql)
+      - "5434:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend/scripts/docker-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U chhlat -d chhlatai"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: chhlatai-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: chhlatai-backend
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      # Direct API access & docs at http://localhost:8000/api/docs
+      - "8000:8000"
+    env_file:
+      - path: ./backend/.env
+        required: false
+    environment:
+      # Connect inside docker network
+      - DATABASE_URL=postgresql+psycopg://chhlat:chhlat@db:5432/chhlatai
+      - REDIS_URL=redis://redis:6379/0
+      - CORS_ORIGINS=["http://localhost:5173", "http://localhost:3000", "http://localhost:80", "http://localhost"]
+    volumes:
+      - uploads_data:/app/uploads
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: chhlatai-worker
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - path: ./backend/.env
+        required: false
+    environment:
+      - DATABASE_URL=postgresql+psycopg://chhlat:chhlat@db:5432/chhlatai
+      - REDIS_URL=redis://redis:6379/0
+      - SKIP_SEED=true
+      - SKIP_MIGRATIONS=true
+    volumes:
+      - uploads_data:/app/uploads
+    command: ["celery", "-A", "app.workers.celery_app", "worker", "-Q", "inbox,default", "-c", "4", "-l", "INFO"]
+    healthcheck:
+      disable: true
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: chhlatai-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: chhlatai-cloudflared
+    restart: unless-stopped
+    depends_on:
+      frontend:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: ["--no-autoupdate", "--url", "${TUNNEL_TARGET:-http://frontend:80}"]
+
+volumes:
+  pgdata:
+  redisdata:
+  uploads_data:

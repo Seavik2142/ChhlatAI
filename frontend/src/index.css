@@ -1,0 +1,601 @@
+@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Design tokens from the Figma file (variables: brand/, text/, bg/, border/, status/, channel/, bank/, radius/). */
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Kantumruy Pro", ui-sans-serif, system-ui, sans-serif;
+  --font-khmer: "Kantumruy Pro", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: #4f46e5;
+  --color-brand-soft: #eef2ff;
+  --color-ink: #0f172a; /* text/primary */
+  --color-ink-2: #475569; /* text/secondary */
+  --color-muted: #94a3b8; /* text/muted */
+  --color-on-brand: #ffffff;
+  --color-surface: #ffffff;
+  --color-subtle: #f8fafc;
+  --color-canvas: #f5f6fa;
+  --color-slate-850: #0c1424;
+  --color-line: #e5e7ef; /* border/default */
+  --color-line-strong: #cbd5e1;
+
+  --color-success: #16a34a;
+  --color-success-soft: #dcfce7;
+  --color-warning: #b45309;
+  --color-warning-soft: #fef3c7;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fee2e2;
+  --color-info: #0369a1;
+  --color-info-soft: #e0f2fe;
+  --color-vip: #b7791f;
+  --color-vip-soft: #fef6d8;
+
+  --color-sidebar: #0f172a;
+  --color-sidebar-text: #cbd5e1;
+  --color-sidebar-active: #1e293b;
+
+  --color-telegram: #229ed9;
+  --color-facebook: #1877f2;
+  --color-instagram: #c13584;
+  --color-tiktok: #111111;
+
+  --color-bakong: #e1232e;
+  --color-aba: #005d7f;
+  --color-acleda: #1b3a8c;
+  --color-acleda-accent: #e3a21a;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  --shadow-card: 0px 8px 24px -6px rgba(15, 23, 41, 0.05), 0px 1px 3px 0px rgba(15, 23, 41, 0.06);
+  --shadow-float: 0px 20px 50px -10px rgba(51, 46, 153, 0.16);
+  --shadow-product: 0px 30px 80px -10px rgba(51, 46, 153, 0.18);
+
+  /* Type styles: Caption, Body, H3, H2, Overline */
+  --text-micro: 11px;
+  --text-micro--line-height: 14px;
+  --text-caption: 12px;
+  --text-caption--line-height: 18px;
+  --text-body: 14px;
+  --text-body--line-height: 22px;
+  --text-h3: 16px;
+  --text-h3--line-height: 24px;
+  --text-h2: 20px;
+  --text-h2--line-height: 30px;
+  --text-overline: 11px;
+  --text-overline--line-height: 16px;
+}
+
+:root {
+  --color-canvas: #f5f6fa;
+  --color-surface: #ffffff;
+  --color-subtle: #f8fafc;
+  --color-ink: #0f172a;
+  --color-ink-2: #475569;
+  --color-muted: #94a3b8;
+  --color-line: #e5e7ef;
+  --color-line-strong: #cbd5e1;
+  --color-brand-soft: #eef2ff;
+}
+
+.dark {
+  --color-canvas: #090d16;
+  --color-surface: #111a2e;
+  --color-subtle: #16223b;
+  --color-ink: #f8fafc;
+  --color-ink-2: #cbd5e1;
+  --color-muted: #94a3b8;
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-strong: rgba(255, 255, 255, 0.16);
+  --color-brand-soft: #1e1b4b;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-surface font-sans text-ink;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  html.dark body {
+    background-color: #090d16;
+    color: #f8fafc;
+  }
+  button, input, select, textarea {
+    font-family: inherit;
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Kantumruy Pro for Khmer language, data-lang="km", and .font-khmer */
+  :lang(km),
+  [lang="km"],
+  [data-lang="km"],
+  .font-khmer {
+    font-family: "Kantumruy Pro", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif !important;
+  }
+}
+
+@utility font-khmer {
+  font-family: "Kantumruy Pro", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif !important;
+}
+
+@utility label-caps {
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.66px;
+  text-transform: uppercase;
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line-strong) transparent;
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   World-Class Professional Dark Mode System (Linear / Supabase Tier)
+   ────────────────────────────────────────────────────────────────── */
+@layer utilities {
+  /* 1. Surfaces & Cards */
+  .dark .bg-white {
+    background-color: #111a2e;
+  }
+  .dark .bg-slate-50,
+  .dark .bg-slate-50\/90,
+  .dark .bg-slate-50\/80,
+  .dark .bg-slate-50\/70,
+  .dark .bg-slate-50\/60,
+  .dark .bg-slate-50\/50,
+  .dark .bg-slate-50\/40,
+  .dark .bg-slate-50\/30,
+  .dark .bg-slate-50\/20,
+  .dark .bg-slate-50\/10 {
+    background-color: #0c1424;
+  }
+  .dark .bg-slate-100,
+  .dark .bg-slate-100\/90,
+  .dark .bg-slate-100\/80,
+  .dark .bg-slate-100\/70,
+  .dark .bg-slate-100\/60,
+  .dark .bg-slate-100\/50,
+  .dark .bg-slate-100\/40,
+  .dark .bg-slate-100\/30 {
+    background-color: #16223b;
+  }
+  .dark .bg-slate-200,
+  .dark .bg-slate-200\/60 {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* 2. Borders & Separators */
+  .dark .border-slate-200,
+  .dark .border-slate-200\/90,
+  .dark .border-slate-200\/80,
+  .dark .border-slate-200\/70,
+  .dark .border-slate-200\/60,
+  .dark .border-slate-100 {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
+  .dark .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  /* 3. Text Contrast & Hierarchy */
+  .dark .text-slate-900 {
+    color: #f8fafc;
+  }
+  .dark .text-slate-800 {
+    color: #f1f5f9;
+  }
+  .dark .text-slate-700 {
+    color: #cbd5e1;
+  }
+  .dark .text-slate-600 {
+    color: #cbd5e1;
+  }
+  .dark .text-slate-500 {
+    color: #94a3b8;
+  }
+  .dark .text-slate-400 {
+    color: #94a3b8;
+  }
+
+  /* 4. Hover States */
+  .dark .hover\:bg-slate-50:hover,
+  .dark .hover\:bg-slate-50\/90:hover,
+  .dark .hover\:bg-slate-50\/80:hover,
+  .dark .hover\:bg-slate-50\/70:hover,
+  .dark .hover\:bg-slate-50\/60:hover {
+    background-color: rgba(255, 255, 255, 0.045);
+  }
+  .dark .hover\:bg-slate-100:hover,
+  .dark .hover\:bg-slate-100\/90:hover,
+  .dark .hover\:bg-slate-100\/80:hover,
+  .dark .hover\:bg-slate-100\/70:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .dark .hover\:text-slate-900:hover {
+    color: #ffffff;
+  }
+  .dark .hover\:text-slate-700:hover {
+    color: #f1f5f9;
+  }
+
+  /* 5. Status Badges & Chips — Soft Glowing Dark Aesthetic */
+  /* Emerald / Success / In Stock / Paid / Active */
+  .dark .bg-emerald-50,
+  .dark .bg-emerald-50\/80,
+  .dark .bg-emerald-50\/70 {
+    background-color: rgba(16, 185, 129, 0.12) !important;
+  }
+  .dark .text-emerald-700,
+  .dark .text-emerald-800,
+  .dark .text-emerald-600 {
+    color: #34d399 !important;
+  }
+  .dark .border-emerald-200,
+  .dark .border-emerald-200\/60,
+  .dark .border-emerald-200\/70,
+  .dark .border-emerald-100,
+  .dark .border-emerald-100\/80 {
+    border-color: rgba(16, 185, 129, 0.28) !important;
+  }
+
+  /* Amber / Warning / Low Stock / Checking Slip / Manual */
+  .dark .bg-amber-50,
+  .dark .bg-amber-50\/80,
+  .dark .bg-amber-50\/70 {
+    background-color: rgba(245, 158, 11, 0.14) !important;
+  }
+  .dark .text-amber-700,
+  .dark .text-amber-800,
+  .dark .text-amber-600 {
+    color: #fbbf24 !important;
+  }
+  .dark .border-amber-200,
+  .dark .border-amber-200\/60,
+  .dark .border-amber-200\/70,
+  .dark .border-amber-100 {
+    border-color: rgba(245, 158, 11, 0.28) !important;
+  }
+
+  /* Rose / Danger / Out of Stock / Needs Review / Unpaid */
+  .dark .bg-rose-50,
+  .dark .bg-rose-50\/80,
+  .dark .bg-red-50 {
+    background-color: rgba(244, 63, 94, 0.14) !important;
+  }
+  .dark .text-rose-700,
+  .dark .text-rose-800,
+  .dark .text-rose-600,
+  .dark .text-red-700,
+  .dark .text-red-600 {
+    color: #fb7185 !important;
+  }
+  .dark .border-rose-200,
+  .dark .border-rose-200\/60,
+  .dark .border-rose-200\/70,
+  .dark .border-red-200 {
+    border-color: rgba(244, 63, 94, 0.28) !important;
+  }
+
+  /* Indigo / Brand / Primary */
+  .dark .bg-indigo-50,
+  .dark .bg-indigo-50\/80 {
+    background-color: rgba(99, 102, 241, 0.16) !important;
+  }
+  .dark .text-indigo-700,
+  .dark .text-indigo-800,
+  .dark .text-indigo-600 {
+    color: #a5b4fc !important;
+  }
+  .dark .border-indigo-200,
+  .dark .border-indigo-200\/60,
+  .dark .border-indigo-200\/70,
+  .dark .border-indigo-100 {
+    border-color: rgba(99, 102, 241, 0.28) !important;
+  }
+
+  /* Blue / Sky / Info */
+  .dark .bg-blue-50,
+  .dark .bg-blue-50\/80,
+  .dark .bg-sky-50,
+  .dark .bg-sky-50\/80 {
+    background-color: rgba(14, 165, 233, 0.14) !important;
+  }
+  .dark .text-blue-700,
+  .dark .text-blue-600,
+  .dark .text-sky-700,
+  .dark .text-sky-600 {
+    color: #7dd3fc !important;
+  }
+  .dark .border-blue-200,
+  .dark .border-blue-200\/60,
+  .dark .border-sky-200,
+  .dark .border-sky-100 {
+    border-color: rgba(14, 165, 233, 0.28) !important;
+  }
+
+  /* Purple / AI Bot */
+  .dark .bg-purple-50,
+  .dark .bg-purple-50\/80 {
+    background-color: rgba(168, 85, 247, 0.14) !important;
+  }
+  .dark .text-purple-700,
+  .dark .text-purple-600 {
+    color: #d8b4fe !important;
+  }
+  .dark .border-purple-200,
+  .dark .border-purple-200\/60,
+  .dark .border-purple-100 {
+    border-color: rgba(168, 85, 247, 0.28) !important;
+  }
+
+  /* Dark theme text contrast for badges and colored alerts */
+  .dark .text-emerald-900,
+  .dark .text-emerald-950 {
+    color: #a7f3d0 !important;
+  }
+  .dark .text-amber-900,
+  .dark .text-amber-950 {
+    color: #fde68a !important;
+  }
+  .dark .text-rose-900,
+  .dark .text-rose-950,
+  .dark .text-red-900,
+  .dark .text-red-950 {
+    color: #fecdd3 !important;
+  }
+  .dark .text-indigo-900,
+  .dark .text-indigo-950 {
+    color: #c7d2fe !important;
+  }
+  .dark .text-blue-900,
+  .dark .text-sky-900 {
+    color: #bae6fd !important;
+  }
+  .dark .text-purple-900,
+  .dark .text-purple-950 {
+    color: #e9d5ff !important;
+  }
+
+  /* Primary Action Buttons in Dark Mode: Lift dark slate buttons to vibrant indigo */
+  .dark button.bg-slate-900:not(:disabled),
+  .dark a.bg-slate-900 {
+    background-color: #4f46e5 !important;
+    color: #ffffff !important;
+  }
+  .dark button.bg-slate-900:not(:disabled):hover,
+  .dark a.bg-slate-900:hover {
+    background-color: #4338ca !important;
+  }
+
+  /* 6. Form Elements in Dark Mode */
+  .dark input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+  .dark select,
+  .dark textarea {
+    background-color: #0b1120 !important;
+    color: #f8fafc !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3) !important;
+  }
+  .dark input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):focus,
+  .dark select:focus,
+  .dark textarea:focus {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25) !important;
+    outline: none !important;
+  }
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: #64748b !important;
+  }
+  .dark select option {
+    background-color: #111a2e;
+    color: #f8fafc;
+  }
+
+  /* 7. Tables in Dark Mode */
+  .dark table thead {
+    background-color: #0c1424 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+  .dark table thead th {
+    color: #94a3b8 !important;
+  }
+  .dark table tbody tr {
+    border-color: rgba(255, 255, 255, 0.05) !important;
+  }
+  .dark table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.035) !important;
+  }
+
+  /* 8. Shadows & Depth Elevation */
+  .dark .shadow-2xs,
+  .dark .shadow-xs,
+  .dark .shadow-sm {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.04) !important;
+  }
+  .dark .shadow-md,
+  .dark .shadow-lg,
+  .dark .shadow-xl,
+  .dark .shadow-2xl {
+    box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.65), 0 4px 6px -2px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.06) !important;
+  }
+
+  /* 9. Card Inset Highlight Effect for Clean Modern Edges */
+  .dark .rounded-2xl.border,
+  .dark .rounded-xl.border {
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   High-Performance Smooth Micro-Animations & Motion System
+   ────────────────────────────────────────────────────────────────── */
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes aurora-drift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.35;
+  }
+  33% {
+    transform: translate(30px, -20px) scale(1.08);
+    opacity: 0.55;
+  }
+  66% {
+    transform: translate(-20px, 15px) scale(0.95);
+    opacity: 0.4;
+  }
+}
+
+@keyframes aurora-drift-2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate(-35px, -25px) scale(1.1);
+    opacity: 0.45;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 0.9;
+  }
+}
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+@keyframes border-glow-rotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-aurora-drift {
+  animation: aurora-drift 14s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-aurora-drift-2 {
+  animation: aurora-drift-2 18s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-shimmer {
+  animation: shimmer 3.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-gradient-x {
+  animation: gradient-x 6s ease infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow,
+  .animate-float-reverse,
+  .animate-aurora-drift,
+  .animate-aurora-drift-2,
+  .animate-shimmer,
+  .animate-marquee,
+  .animate-gradient-x,
+  .animate-pulse-subtle {
+    animation: none !important;
+  }
+}
+

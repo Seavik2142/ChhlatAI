@@ -1,0 +1,6 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="20" height="11" viewBox="0 0 20 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Toggle">
+<path d="M0 5.5C0 2.46243 2.46243 0 5.5 0H14.5C17.5376 0 20 2.46243 20 5.5V5.5C20 8.53757 17.5376 11 14.5 11H5.5C2.46243 11 0 8.53757 0 5.5V5.5Z" fill="#16A34A"/>
+<circle id="Knob" cx="14.5" cy="5.5" r="4" fill="white"/>
+</g>
+</svg>
